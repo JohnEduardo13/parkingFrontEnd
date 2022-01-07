@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parking/constants.dart';
-import 'package:parking/src/ui/welcome/welcomeScreen.dart';
+import 'package:parking/src/ui/welcome/welcome_screen.dart';
 
 void main() => runApp(const MyApp());
 
