@@ -3,10 +3,10 @@ import 'package:parking/constants.dart';
 
 class Button extends StatelessWidget {
   final String text;
-  final Function press;
+  final VoidCallback press;
   final Color color, textColor;
   const Button({
-    Key? key,
+    key,
     required this.text,
     required this.press,
     this.color = kPrimaryColor,
@@ -32,7 +32,7 @@ class Button extends StatelessWidget {
         text,
         style: TextStyle(color: textColor),
       ),
-      onPressed: press(),
+      onPressed: press,
       style: ElevatedButton.styleFrom(
           primary: color,
           padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),

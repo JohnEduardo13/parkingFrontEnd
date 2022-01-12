@@ -6,8 +6,6 @@ import 'package:parking/src/ui/login/login_screen.dart';
 import 'package:parking/src/ui/signup/signup_screen.dart';
 import 'package:parking/src/ui/welcome/components/welcome_background.dart';
 
-
-
 class WelcomeBody extends StatelessWidget {
   const WelcomeBody({Key? key}) : super(key: key);
 
@@ -36,7 +34,7 @@ class WelcomeBody extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) {
+                    builder: (BuildContext context) {
                       return const LoginScreen();
                     },
                   ),

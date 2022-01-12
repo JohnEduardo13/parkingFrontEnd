@@ -4,6 +4,7 @@ import 'package:parking/src/components/already_have_an_account_check.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/components/input_button.dart';
 import 'package:parking/src/components/password_button.dart';
+import 'package:parking/src/ui/google_maps/maps_screen.dart';
 import 'package:parking/src/ui/login/components/login_background.dart';
 import 'package:parking/src/ui/signup/signup_screen.dart';
 
@@ -39,7 +40,16 @@ class LoginBody extends StatelessWidget {
             ),
             Button(
               text: "LOGIN",
-              press: () {},
+              press: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context){
+                      return const MapsScreen();
+                    }
+                  ),
+                );
+              },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(

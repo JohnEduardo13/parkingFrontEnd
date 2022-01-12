@@ -3,9 +3,9 @@ import 'package:parking/constants.dart';
 
 class AlreadyHaveAnAccountCheck extends StatelessWidget {
   final bool login;
-  final Function press;
+  final VoidCallback press;
   const AlreadyHaveAnAccountCheck({
-    Key? key,
+    key,
     this.login = true, 
     required this.press,    
   }) : super(key: key);
@@ -20,7 +20,7 @@ class AlreadyHaveAnAccountCheck extends StatelessWidget {
           style: const TextStyle(color: kPrimaryColor),
         ),
         GestureDetector(
-          onTap: press(),
+          onTap: press,
           child: Text(
             login ? "Sign Up" : "Sign In",
             style: const TextStyle(
