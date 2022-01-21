@@ -15,6 +15,10 @@ class MapsBody extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text("Mapa"),
+          ),
         body: SafeArea(
           child: Column(
             children: [

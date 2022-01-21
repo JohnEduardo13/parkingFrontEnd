@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:parking/constants.dart';
 import 'package:parking/src/components/already_have_an_account_check.dart';
-import 'package:parking/src/components/button.dart';
-import 'package:parking/src/components/input_button.dart';
-import 'package:parking/src/components/password_button.dart';
+import 'package:parking/src/components/signup_form.dart';
 import 'package:parking/src/ui/login/login_screen.dart';
-import 'package:parking/src/ui/signup/components/signup_background.dart';
 
 class SignupBody extends StatelessWidget {
   const SignupBody({Key? key}) : super(key: key);
@@ -13,33 +10,29 @@ class SignupBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return SignupBackground(
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              "SIGNUP",
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          const Padding(
+            padding: EdgeInsets.fromLTRB(35, 50, 35, 15),
+            child: Text(
+              signUpTitle,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: size.height * 0.03),
-            SvgPicture.asset(
-              "assets/icons/signup.svg",
-              height: size.height * 0.35,
-            ),
-            InputButton(
-              hintText: "Your Email",
-              onChanged: (value) {},
-            ),
-            PasswordButton(
-              onChanged: (value) {},
-            ),
-            Button(
-              text: "SIGNUP",
-              press: () {},
-            ),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
+          ),
+          Padding(
+            padding: const EdgeInsets.all(5.0),
+            child: Image.asset('assets/images/perfil_2.png',
+                height: size.height * 0.15),
+          ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(35, 15, 35, 10),
+            child: SignupForm(),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(35, 5, 35, 20),
+            child: AlreadyHaveAnAccountCheck(
               login: false,
               press: () {
                 Navigator.push(
@@ -52,8 +45,8 @@ class SignupBody extends StatelessWidget {
                 );
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
