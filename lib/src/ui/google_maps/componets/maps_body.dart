@@ -5,36 +5,71 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:parking/src/models/parking_model.dart';
 
-class MapsBody extends StatelessWidget {
+/*class MapsBody extends StatefulWidget {
   const MapsBody({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    LatLng latLng = const LatLng(37.4275, -122.1472);
-    CameraPosition cameraPosition = CameraPosition(target: latLng);
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text("Mapa"),
+  State<MapsBody> createState() => _MapsBodyState();
+}
+
+class _MapsBodyState extends State<MapsBody> {
+  final Set<Marker> _markers = {};
+
+  void _onAddMarker() {
+    setState(() {
+      _markers.add(
+        const Marker(
+          markerId: MarkerId("parqueadero 1"),
+          position: LatLng(3.435717, -76.468333),
+          infoWindow: InfoWindow(
+            title: "Parqueadero libre",
+            snippet: "Cupo 15/30",
           ),
-        body: SafeArea(
+          icon: BitmapDescriptor.defaultMarker,
+        ),
+      );
+    });
+  }
+
+  late GoogleMapController mapController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: SingleChildScrollView(
           child: Column(
-            children: [
-              Expanded(
-                  child: GoogleMap(
-                    initialCameraPosition: cameraPosition,),
+            children: <Widget>[
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                width: MediaQuery.of(context).size.width,
+                child: GoogleMap(
+                  markers: _markers,
+                  onMapCreated: (GoogleMapController controller) {
+                    mapController = controller;
+                  },
+                  initialCameraPosition: const CameraPosition(
+                      target: LatLng(3.433704, -76.464625), zoom: 15),
+                ),
               ),
             ],
           ),
         ),
-      ),
-    );
+        floatingActionButton: FloatingActionButton(onPressed: () {
+          double mq1 = MediaQuery.of(context).devicePixelRatio;
+          _onAddMarker();
+          mapController.animateCamera(
+            CameraUpdate.newCameraPosition(
+              const CameraPosition(
+                target: LatLng(3.435717, -76.468333),
+                zoom: 15.0,
+              ),
+            ),
+          );
+        }));
   }
-}
+}*/
 
-/*class MapsBody extends StatelessWidget {
+class MapsBody extends StatelessWidget {
   const MapsBody({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
@@ -55,23 +90,56 @@ class MyMapsPage extends StatefulWidget {
 }
 
 class _MyMapsPageState extends State<MyMapsPage> {
-    late Future _future;
+    //late Future _future;
 
-    Future <ParkingModel> loadAPI() async{
-      var urlParking = 'http://7b93-181-50-102-111.ngrok.io/parkingLot/all';
-      var response = await http.get(Uri.parse(urlParking));
+    Future<Set<Marker>> createMarkers() async {
+      List<Marker> markes = [];
+
+      var urlParking = 'http://0346-181-50-102-111.ngrok.io/parkingLot/all';
+      final response = await http.get(Uri.parse(urlParking));
       final responseBody = jsonDecode(response.body);
-      return ParkingModel.fromJson(responseBody[0]);
+      if(responseBody.length > 0){
+        for(int i = 0; i < responseBody.length; i++){
+          if(responseBody[i] != null){
+            Map<String, dynamic> map = responseBody[i];
+            double x = map['locX'];
+            double y = map['locY'];
+            markes.add(
+              Marker(
+                markerId: MarkerId(map['idParqueadero'].toString()),
+                position: LatLng(x, y),
+              ),
+            );
+          }
+        }
+      }
+      return markes.toSet();
     }
 
-    List<Marker> allMarkers = [];
+    /*Future <List<ParkingModel>> loadAPI() async{
+      try{
+        var urlParking = 'http://7b93-181-50-102-111.ngrok.io/parkingLot/all';
+        final response = await http.get(Uri.parse(urlParking));
+        final responseBody = jsonDecode(response.body);
+        return responseBody;
+      }catch (e){
+        return [];
+      }
+    }*/
+
+    /*List<Marker> allMarkers = [];
+
+    loadLocations() async {
+      List<ParkingModel> locations = [];
+      locations = await get
+    }
     late GoogleMapController _controller;
 
     @override
     void initState() {
       super.initState();
       _future = loadAPI();
-    }
+    }*/
     
     @override
     Widget build(BuildContext context) {
@@ -82,24 +150,19 @@ class _MyMapsPageState extends State<MyMapsPage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder(
-                future: _future,
+                future: createMarkers(),
                 builder: (context, AsyncSnapshot snapshot){
                   if(!snapshot.hasData){
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
-                  List<dynamic> parsedJson = jsonDecode(snapshot.data);
-
-                  allMarkers = parsedJson.map((i) {
-                    return Marker(
-                      markerId: MarkerId(i['id_parqueadero']),
-                      position: LatLng(i['loc_x'], i['loc_y']),
-                      );
-                  }).toList();
-
                   return GoogleMap(
+                    mapType: MapType.normal,
+                    markers: snapshot.data,
                     initialCameraPosition: const CameraPosition(
+                      target: LatLng(3.433704, -76.464625), zoom: 10),
+                    /*initialCameraPosition: const CameraPosition(
                       target: LatLng(40.7128, -74.0060), zoom: 1.0),
                       markers: Set.from(allMarkers),
                       onMapCreated: mapCreated,
@@ -107,7 +170,7 @@ class _MyMapsPageState extends State<MyMapsPage> {
 
                       tiltGesturesEnabled: true,
                       compassEnabled: true,
-                      myLocationEnabled: true,
+                      myLocationEnabled: true,*/
                       );
                 },
               ),
@@ -117,11 +180,10 @@ class _MyMapsPageState extends State<MyMapsPage> {
       );
     }
 
-    void mapCreated(controller){
+    /*void mapCreated(controller){
       setState(() {
         _controller = controller;
       });
-    }
-}*/
-
+    }*/
+}
 
