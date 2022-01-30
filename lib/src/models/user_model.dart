@@ -1,15 +1,20 @@
-class UserModel {
-  String _user = '';
-  String _pass = '';
-  int _rol = 0;
+class UserModel{
+  String? user;
+  String? password;
+  int? rol;
 
-  UserModel.fromJson(Map<String, dynamic> parsedJson){
-    _user = parsedJson['usuario'];
-    _pass = parsedJson['password'];
-    _rol = parsedJson['rol'];
+  UserModel({
+    this.user,
+    this.password,
+    this.rol
+  });
+
+  factory UserModel.fromJSON(Map<String, dynamic> jsonMap){
+    final data = UserModel(
+      user: jsonMap['usuario'],
+      password: jsonMap['password'],
+      rol: jsonMap['rol']
+    );
+    return data;
   }
-
-  String get user => _user;
-  String get pass => _pass;
-  int get rol => _rol;
 }

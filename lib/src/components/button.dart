@@ -4,11 +4,15 @@ import 'package:parking/constants.dart';
 class Button extends StatelessWidget {
   final String text;
   final VoidCallback press;
+  final double width;
+  final double heigth;
   final Color color, textColor;
   const Button({
     key,
     required this.text,
     required this.press,
+    required this.heigth,
+    required this.width,
     this.color = kPrimaryColor,
     this.textColor = Colors.white,
   }) : super(key: key);
@@ -18,7 +22,8 @@ class Button extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      width: size.width * 0.8,
+      width: size.width * width,
+      height: size.height * heigth,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(29),
         child: newElevatedButton(),

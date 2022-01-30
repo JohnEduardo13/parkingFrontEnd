@@ -21,12 +21,12 @@ class WelcomeBody extends StatelessWidget {
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
             SizedBox(height: size.height * 0.05),
-            Image.asset(
-              'assets/images/parking.png',
-              height: size.height * 0.45
-            ),
+            Image.asset('assets/images/parking.png',
+                height: size.height * 0.45),
             SizedBox(height: size.height * 0.05),
             Button(
+              width: 0.8,
+              heigth: 0.07,
               text: loginButton,
               press: () {
                 Navigator.push(
@@ -40,6 +40,8 @@ class WelcomeBody extends StatelessWidget {
               },
             ),
             Button(
+              width: 0.8,
+              heigth: 0.07,
               text: singUpButton,
               color: kPrimaryLightColor,
               textColor: Colors.black,

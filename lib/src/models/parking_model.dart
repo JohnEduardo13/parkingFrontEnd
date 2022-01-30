@@ -1,4 +1,4 @@
-class ParkingModel {
+/*class ParkingModel {
   int _idParking = 0;
   String _barrio = '';
   String _direccion = '';
@@ -28,6 +28,47 @@ class ParkingModel {
   int get cupoTotal => _cupoTotal;
   int get cupoActual => _cupoActual;
   int get idPropietario => _idPropietario;
-  double get loceXe => _locX;
+  double get locX => _locX;
   double get locY => _locY;
+}*/
+
+class ParkingModel{
+  final int? idParking;
+  final String? barrio;
+  final String? direccion;
+  final int? telefono;
+  final int? cupoTotal;
+  final int? cupoActual;
+  final int? idPropietario;
+  final double? locX;
+  final double? locY;
+
+  ParkingModel(
+    {
+      this.idParking,
+      this.barrio,
+      this.direccion,
+      this.telefono,
+      this.cupoTotal,
+      this.cupoActual,
+      this.idPropietario,
+      this.locX,
+      this.locY
+    }
+  );
+
+  factory ParkingModel.fromJSON(Map<String, dynamic> jsonMap){
+    final data = ParkingModel(
+      idParking: jsonMap["idParqueadero"],
+      barrio: jsonMap["barrio"],
+      direccion: jsonMap["direccion"],
+      telefono: jsonMap["telefono"],
+      cupoTotal: jsonMap["cupoTotal"],
+      cupoActual: jsonMap["cupoActual"],
+      idPropietario: jsonMap["idPropietario"],
+      locX: jsonMap["locX"],
+      locY: jsonMap["locY"]
+    );
+    return data;
+  }
 }

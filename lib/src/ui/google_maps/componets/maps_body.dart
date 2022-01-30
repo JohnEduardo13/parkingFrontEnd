@@ -1,9 +1,16 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
+import 'package:parking/src/blocs/google_maps/maps_bloc.dart';
+import 'package:parking/src/blocs/google_maps/maps_from_event.dart';
 import 'package:parking/src/models/parking_model.dart';
+import 'package:parking/src/models/user_model.dart';
+import 'package:parking/src/resources/parking_repository.dart';
+import 'package:parking/constants.dart';
+
 
 /*class MapsBody extends StatefulWidget {
   const MapsBody({Key? key}) : super(key: key);
@@ -69,10 +76,12 @@ class _MapsBodyState extends State<MapsBody> {
   }
 }*/
 
+
+
+
 class MapsBody extends StatelessWidget {
   const MapsBody({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
@@ -90,12 +99,11 @@ class MyMapsPage extends StatefulWidget {
 }
 
 class _MyMapsPageState extends State<MyMapsPage> {
-    //late Future _future;
-
+    ParkingRepository parkingRepo = ParkingRepository();
     Future<Set<Marker>> createMarkers() async {
       List<Marker> markes = [];
 
-      var urlParking = 'http://0346-181-50-102-111.ngrok.io/parkingLot/all';
+      var urlParking = urlAPI+'/parkingLot/all';
       final response = await http.get(Uri.parse(urlParking));
       final responseBody = jsonDecode(response.body);
       if(responseBody.length > 0){
@@ -116,33 +124,9 @@ class _MyMapsPageState extends State<MyMapsPage> {
       return markes.toSet();
     }
 
-    /*Future <List<ParkingModel>> loadAPI() async{
-      try{
-        var urlParking = 'http://7b93-181-50-102-111.ngrok.io/parkingLot/all';
-        final response = await http.get(Uri.parse(urlParking));
-        final responseBody = jsonDecode(response.body);
-        return responseBody;
-      }catch (e){
-        return [];
-      }
-    }*/
-
-    /*List<Marker> allMarkers = [];
-
-    loadLocations() async {
-      List<ParkingModel> locations = [];
-      locations = await get
-    }
-    late GoogleMapController _controller;
-
-    @override
-    void initState() {
-      super.initState();
-      _future = loadAPI();
-    }*/
-    
     @override
     Widget build(BuildContext context) {
+      UserModel user = UserModel();
       return Scaffold(
         body: Stack(
           children: [
@@ -150,27 +134,19 @@ class _MyMapsPageState extends State<MyMapsPage> {
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
               child: FutureBuilder(
-                future: createMarkers(),
+                future: createMarkers(),//parkingRepo.createMarkers(),
                 builder: (context, AsyncSnapshot snapshot){
                   if(!snapshot.hasData){
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
+                  print("Contraseña de usuario ${user.password}");
                   return GoogleMap(
                     mapType: MapType.normal,
                     markers: snapshot.data,
                     initialCameraPosition: const CameraPosition(
                       target: LatLng(3.433704, -76.464625), zoom: 10),
-                    /*initialCameraPosition: const CameraPosition(
-                      target: LatLng(40.7128, -74.0060), zoom: 1.0),
-                      markers: Set.from(allMarkers),
-                      onMapCreated: mapCreated,
-                      mapType: MapType.normal,
-
-                      tiltGesturesEnabled: true,
-                      compassEnabled: true,
-                      myLocationEnabled: true,*/
                       );
                 },
               ),
@@ -179,11 +155,5 @@ class _MyMapsPageState extends State<MyMapsPage> {
         ),
       );
     }
-
-    /*void mapCreated(controller){
-      setState(() {
-        _controller = controller;
-      });
-    }*/
 }
 

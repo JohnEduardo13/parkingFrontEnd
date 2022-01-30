@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class VehicleCard extends StatelessWidget {
-  const VehicleCard({Key? key}) : super(key: key);
+  final String? type;
+  final String? licensePlate;
+  const VehicleCard({
+    Key? key,
+    required this.type,
+    required this.licensePlate,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -11,12 +16,12 @@ class VehicleCard extends StatelessWidget {
       elevation: 10,
       child: Column(
         children: <Widget>[
-          const ListTile(
-            contentPadding: EdgeInsets.fromLTRB(15, 10, 25, 0),
-            title: Text('Vehiculo: Auto' ),
+          ListTile(
+            contentPadding: const EdgeInsets.fromLTRB(15, 10, 25, 0),
+            title: Text('Vehiculo: $type' ),
             subtitle: Text(
-                'Placa: CZR 263'),
-            leading: Icon(Icons.drive_eta),
+                'Placa: $licensePlate'),
+            leading: const Icon(Icons.drive_eta),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
