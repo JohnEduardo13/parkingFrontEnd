@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking/constants.dart';
 import 'package:parking/src/ui/google_maps/maps_screen.dart';
 import 'package:parking/src/ui/perfil/perfil_screen.dart';
 import 'package:parking/src/ui/vehicles/vehicles_screen.dart';
@@ -26,6 +27,8 @@ class _BottomNavigationState extends State<BottomNavigation> {
       home: Scaffold(
         body: _pages[_currentPage],
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: kPrimaryColor,
+          unselectedItemColor: kPrimaryLightColor,
           onTap: (index){
             setState(() {
               _currentPage = index;
@@ -33,9 +36,9 @@ class _BottomNavigationState extends State<BottomNavigation> {
           },
           currentIndex: _currentPage,
           items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-            BottomNavigationBarItem(icon: Icon(Icons.car_rental_sharp), label: "Vehicles"),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: "Perfil"),
+            BottomNavigationBarItem(icon: Icon(Icons.home, color: kPrimaryLightColor), activeIcon: Icon(Icons.person, color: kPrimaryColor), label: "Home"),
+            BottomNavigationBarItem(icon: Icon(Icons.car_rental_sharp, color: kPrimaryLightColor),activeIcon: Icon(Icons.person, color: kPrimaryColor), label: "Vehicles"),
+            BottomNavigationBarItem(icon: Icon(Icons.person, color: kPrimaryLightColor), activeIcon: Icon(Icons.person, color: kPrimaryColor), label: "Perfil"),
           ],
         ),
       ),

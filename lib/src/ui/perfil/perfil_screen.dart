@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking/constants.dart';
 import 'package:parking/src/ui/perfil/components/perfil_body.dart';
 
 class PerfilScreen extends StatelessWidget {
@@ -8,6 +9,7 @@ class PerfilScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kPrimaryColor,
         centerTitle: true,
         title: const Text("Mi perfil"),
       ),

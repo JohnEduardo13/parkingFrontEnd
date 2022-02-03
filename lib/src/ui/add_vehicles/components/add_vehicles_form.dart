@@ -5,6 +5,7 @@ import 'package:parking/src/components/bottom_navigation_bar.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/models/vehicles_model.dart';
 import 'package:parking/src/resources/vehicles_repository.dart';
+import 'package:parking/src/ui/vehicles/components/vehicles_body.dart';
 
 class VehiclesForm extends StatefulWidget {
   const VehiclesForm({Key? key}) : super(key: key);
@@ -15,8 +16,8 @@ class VehiclesForm extends StatefulWidget {
 
 class _VehiclesFormState extends State<VehiclesForm> {
   final _textController = TextEditingController();
-  String? _selecctedType;
   final _formKey = GlobalKey<FormState>();
+  String? _selecctedType;
 
   @override
   Widget build(BuildContext context) {
@@ -26,16 +27,13 @@ class _VehiclesFormState extends State<VehiclesForm> {
       child: Form(
         key: _formKey,
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(35, 35, 35, 10),
+          padding: const EdgeInsets.fromLTRB(35, 0, 35, 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              const Text(
-                'Registrar Vehiculo',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-              Image.asset('assets/images/parking.png',
-                  height: size.height * 0.45),
+              Image.asset('assets/images/parking_sin_fondo.png',
+                  height: size.height * 0.35),
+              SizedBox(height: size.height * 0.03),
               const Text(
                 'Ingrese los datos para registrar su vehiculo',
                 style: TextStyle(fontWeight: FontWeight.bold),
@@ -92,18 +90,21 @@ class _VehiclesFormState extends State<VehiclesForm> {
                                 licensePlate:
                                     _textController.text.toUpperCase(),
                                 typeVehicle: _selecctedType,
-                                idDriver: 123456))
+                                idDriver: 119421))
                             .then((response) {
                           if (response.statusCode == 200) {
                             clearText();
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content: Text('Vehiculo Registrado')));
+                                    backgroundColor: kPrimaryLightColor,
+                                    content: Text('Vehiculo Registrado',
+                                        textAlign: TextAlign.center)));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
-                                    content:
-                                        Text('Error al registrar vehiculo')));
+                                    backgroundColor: kPrimaryLightColor,
+                                    content: Text('Error al registrar vehiculo',
+                                        textAlign: TextAlign.center)));
                           }
                         });
                       }
@@ -150,7 +151,6 @@ class _VehiclesFormState extends State<VehiclesForm> {
     );
   }
 
- 
   void clearText() {
     _textController.clear();
   }
@@ -162,6 +162,6 @@ class _VehiclesFormState extends State<VehiclesForm> {
   }
 
   bool _hasMinLenght(String value) {
-    return value.isNotEmpty && value.length >= 3 && value.length < 7;
+    return value.isNotEmpty && value.length >= 3;
   }
 }

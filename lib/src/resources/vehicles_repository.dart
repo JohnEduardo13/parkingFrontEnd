@@ -43,4 +43,25 @@ class VehiclesRepository {
       throw Exception('Fail to get data');
     }
   }
+
+  Future<http.Response> deleteVehicle(String id) async{
+    var url = urlAPI+'/vehicle/delete/'+id;
+    final response = await http.delete(Uri.parse(url));
+    //UserModel.fromJSON(jsonDecode(response.body));
+    return response;
+  }
+
+  Future<http.Response> updateVehicle(VehiclesModel vehicle) async {
+    Map data = {
+      'tipoVehiculo': vehicle.typeVehicle,
+      'placa': vehicle.licensePlate,
+      'idConductor': vehicle.idDriver,
+    };
+
+    var url = urlAPI + '/vehicle/update/' +vehicle.licensePlate!;
+    final response = await http.put(Uri.parse(url),
+        headers: <String, String>{'Content-Type': 'application/json'},
+        body: jsonEncode(data));
+    return response;
+  }
 }

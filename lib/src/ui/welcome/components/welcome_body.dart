@@ -3,7 +3,6 @@ import 'package:parking/constants.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/ui/login/login_screen.dart';
 import 'package:parking/src/ui/signup/signup_screen.dart';
-import 'package:parking/src/ui/welcome/components/welcome_background.dart';
 
 class WelcomeBody extends StatelessWidget {
   const WelcomeBody({Key? key}) : super(key: key);
@@ -11,19 +10,19 @@ class WelcomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return WelcomeBackground(
+    return Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
               welcomeTitle,
-              style: TextStyle(fontWeight: FontWeight.bold),
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
-            SizedBox(height: size.height * 0.05),
-            Image.asset('assets/images/parking.png',
-                height: size.height * 0.45),
-            SizedBox(height: size.height * 0.05),
+            SizedBox(height: size.height * 0.03),
+            Image.asset('assets/images/logo_sin_fondo.png',
+                height: size.height * 0.4),
+            SizedBox(height: size.height * 0.03),
             Button(
               width: 0.8,
               heigth: 0.07,

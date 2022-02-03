@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:parking/constants.dart';
 import 'package:parking/src/ui/add_vehicles/components/add_vehicles_form.dart';
 
 class AddVehiclesScreen extends StatelessWidget {
@@ -6,8 +7,14 @@ class AddVehiclesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: VehiclesForm(),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: kPrimaryColor,
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+        title: const Text("Registrar Vehiculos"),
+      ),
+      body: const VehiclesForm(),
     );
   }
 }

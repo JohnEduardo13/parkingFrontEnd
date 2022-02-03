@@ -7,7 +7,6 @@ import 'package:parking/src/components/input_button.dart';
 import 'package:parking/src/components/password_button.dart';
 import 'package:parking/src/models/user_model.dart';
 import 'package:parking/src/resources/user_repository.dart';
-import 'package:parking/src/ui/login/components/login_background.dart';
 import 'package:parking/src/ui/signup/signup_screen.dart';
 
 class LoginBody extends StatelessWidget {
@@ -29,13 +28,16 @@ class LoginBody extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              loginTitle,
-              style: TextStyle(fontWeight: FontWeight.bold),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(35, 50, 35, 15),
+              child: Text(
+                loginTitle,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             SizedBox(height: size.height * 0.03),
-            Image.asset('assets/images/parking.png',
-                height: size.height * 0.45),
+            Image.asset('assets/images/logo_sin_fondo.png',
+                height: size.height * 0.4),
             SizedBox(height: size.height * 0.03),
             InputButton(
               textController: _userController,
@@ -43,37 +45,25 @@ class LoginBody extends StatelessWidget {
               onChanged: (value) {
                 user.user = value;
               },
-              /*validator: (value){
-                if(value!.isEmpty){
-                  return 'Email is Empty';
-                }
-                return '';
-              },*/
             ),
             PasswordButton(
               textController: _passController,
               onChanged: (value) {
                 user.password = value;
               },
-              /*validator: (value){
-                if(value!.isEmpty){
-                  return 'Password is Empty';
-                }
-                return '';
-              },*/
             ),
             Button(
               width: 0.8,
               heigth: 0.07,
               text: loginButton,
               press: () {
-                Navigator.push(
+                /*Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) {
                     return const BottomNavigation();
                   }),
-                );
-                /*if (_formKey.currentState!.validate()) {
+                );*/
+                if (_formKey.currentState!.validate()) {
                   userRepo.searchUser(_userController.text).then((response) {
                     if (response.statusCode == 200) {
                       userRepo
@@ -90,19 +80,21 @@ class LoginBody extends StatelessWidget {
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text('Datos Incorrectos')));
+                                  backgroundColor: kPrimaryLightColor,
+                                  content: Text('Datos Incorrectos',
+                                      textAlign: TextAlign.center)));
                         }
                       });
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text(
-                                  'El usuario no se encuentra registrado')));
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: kPrimaryLightColor,
+                          content: Text('El usuario no se encuentra registrado',
+                              textAlign: TextAlign.center)));
                     }
                   });
                 } else {
                   print("sin datos");
-                }*/
+                }
               },
             ),
             SizedBox(height: size.height * 0.03),

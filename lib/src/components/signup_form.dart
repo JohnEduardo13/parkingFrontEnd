@@ -7,6 +7,7 @@ import 'package:parking/src/models/driver_model.dart';
 import 'package:parking/src/models/user_model.dart';
 import 'package:parking/src/resources/driver_repository.dart';
 import 'package:parking/src/resources/user_repository.dart';
+import 'package:parking/src/ui/login/login_screen.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -130,7 +131,9 @@ class SignupFormState extends State<SignupForm> {
             if (response1.statusCode == 200) {
               print(response1.statusCode);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  content: Text('El usuario ya se encuentra registrado')));
+                  backgroundColor: kPrimaryLightColor,
+                  content: Text('El usuario ya se encuentra registrado',
+                      textAlign: TextAlign.center)));
             } else {
               if (response1.statusCode == 204) {
                 print("USUARIO NO ENCONTRADO");
@@ -151,32 +154,44 @@ class SignupFormState extends State<SignupForm> {
                       print(response3.statusCode);
                       if (response3.statusCode == 200) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Usuario Creado')));
+                            const SnackBar(
+                                backgroundColor: kPrimaryLightColor,
+                                content: Text('Usuario Creado',
+                                    textAlign: TextAlign.center)));
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) {
-                            return const BottomNavigation();
+                            return const LoginScreen();
                           }),
                         );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
+                                backgroundColor: kPrimaryLightColor,
                                 content: Text(
-                                    'Error al no poder crear el usuario')));
+                                    'Error al no poder crear el usuario',
+                                    textAlign: TextAlign.center)));
                       }
                     }).catchError((Object error) {
                       print(' Error ${error}');
                     });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Usuario Creado')));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: kPrimaryLightColor,
+                        content: Text('Usuario Creado',
+                            textAlign: TextAlign.center)));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Error al crear el usuario')));
+                        backgroundColor: kPrimaryLightColor,
+                        content: Text('Error al crear el usuario',
+                            textAlign: TextAlign.center)));
                   }
                 });
               } else {
                 ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    content: Text('Error al consultar el usuario')));
+                    backgroundColor: kPrimaryLightColor,
+                    content: Text('Error al consultar el usuario',
+                        textAlign: TextAlign.center)));
               }
             }
           });
