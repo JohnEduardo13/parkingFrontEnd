@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "632526125485",
+    "project_id": "parkeando-96320",
+    "storage_bucket": "parkeando-96320.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:632526125485:android:822185b99d4fdef24cc924",
+        "android_client_info": {
+          "package_name": "com.example.parking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "632526125485-k54fjj4nsai0bbsn36eumhrb9satrumo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDFWiPe-MypqJxJ2RE9wgAEbD62sPZHn-Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "632526125485-k54fjj4nsai0bbsn36eumhrb9satrumo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
