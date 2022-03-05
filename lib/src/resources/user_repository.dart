@@ -14,7 +14,9 @@ class UserRepository{
       'rol': 2,
     };
 
-    var url = urlAPI+'/user/save';
+    String email = user.user!;
+
+    var url = urlAPI+'/user/save/'+email;
     final response = await http.post(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},
           body: jsonEncode(data));
@@ -32,6 +34,12 @@ class UserRepository{
     var url = urlAPI+'/user/'+email;
     final response = await http.get(Uri.parse(url));
     return UserModel.fromJSON(jsonDecode(response.body));
+  }
+
+  Future<http.Response> deleteUser(String email) async{
+    var url = urlAPI+'/user/delete/'+email;
+    final response = await http.delete(Uri.parse(url));
+    return response;
   }
 
 }

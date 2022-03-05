@@ -126,7 +126,7 @@ class _VehiclesFormState extends State<VehiclesForm> {
         decoration: const InputDecoration(
           hintText: 'Ingrese su placa',
         ),
-        validator: (value) => _validatorEmail(value!));
+        validator: (value) => _validator(value!));
   }
 
   Widget selectType() {
@@ -155,13 +155,13 @@ class _VehiclesFormState extends State<VehiclesForm> {
     _textController.clear();
   }
 
-  String? _validatorEmail(String value) {
+  String? _validator(String value) {
     if (!_hasMinLenght(value)) {
       return 'Valide los datos';
     }
   }
 
   bool _hasMinLenght(String value) {
-    return value.isNotEmpty && value.length >= 3;
+    return value.isNotEmpty && value.length >= 3 && value.length <=6;
   }
 }

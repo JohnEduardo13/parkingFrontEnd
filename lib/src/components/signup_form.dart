@@ -7,6 +7,7 @@ import 'package:parking/src/models/driver_model.dart';
 import 'package:parking/src/models/user_model.dart';
 import 'package:parking/src/resources/driver_repository.dart';
 import 'package:parking/src/resources/user_repository.dart';
+import 'package:parking/src/services/auth.dart';
 import 'package:parking/src/ui/login/login_screen.dart';
 
 class SignupForm extends StatefulWidget {
@@ -31,6 +32,7 @@ class SignupFormState extends State<SignupForm> {
   final _passController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
+  final AuthService _auth = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -122,12 +124,78 @@ class SignupFormState extends State<SignupForm> {
       width: 0.8,
       heigth: 0.07,
       text: loginButton,
-      press: () {
+      press: () async {
         save = false;
         if (_formKey.currentState!.validate()) {
-          _formKey.currentState!.save();
+          dynamic result = await _auth.registerWithEmailAndPassword(
+              _userController.text, _passController.text);
 
-          userRepo.searchUser(_userController.text).then((response1) {
+          if (result == null) {
+            print("no guardo");
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                backgroundColor: kPrimaryLightColor,
+                content: Text('Error al guardar los datos',
+                    textAlign: TextAlign.center)));
+          } else {
+            print("guardo");
+            userRepo
+                .registerUSer(UserModel(
+                    user: _userController.text, password: _passController.text))
+                .then((response) {
+              if (response.statusCode == 200) {
+                driverRepo
+                    .registerDriver(DriverModel(
+                        document: int.parse(_documentController.text),
+                        name: _nameController.text,
+                        lastName: _lastNameController.text,
+                        email: _userController.text,
+                        phone: _phoneController.text))
+                    .then((response) {
+                  if (response.statusCode == 200) {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        backgroundColor: kPrimaryLightColor,
+                        content: Text('Usuario Creado',
+                            textAlign: TextAlign.center)));
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const LoginScreen();
+                      }),
+                    );
+                  } else {
+                    if (response.statusCode == 400) {
+                      userRepo.deleteUser(_userController.text);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: kPrimaryLightColor,
+                          content: Text(
+                              'El usuario ya posee una cuenta registrda',
+                              textAlign: TextAlign.center)));
+                    } else {
+                      userRepo.deleteUser(_userController.text);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                          backgroundColor: kPrimaryLightColor,
+                          content: Text('Error al guardar los datos',
+                              textAlign: TextAlign.center)));
+                    }
+                  }
+                });
+              } else {
+                if (response.statusCode == 400) {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: kPrimaryLightColor,
+                      content: Text('El email ya se encuentra registrado',
+                          textAlign: TextAlign.center)));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: kPrimaryLightColor,
+                      content: Text('Error al crear el usuario',
+                          textAlign: TextAlign.center)));
+                }
+              }
+            });
+          }
+
+          /*userRepo.searchUser(_userController.text).then((response1) {
             if (response1.statusCode == 200) {
               print(response1.statusCode);
               ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
@@ -194,7 +262,8 @@ class SignupFormState extends State<SignupForm> {
                         textAlign: TextAlign.center)));
               }
             }
-          });
+          });*/
+
         }
       },
     );

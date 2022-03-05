@@ -16,7 +16,9 @@ class DriverRepository{
       'telefono': driver.phone,
     };
     
-    var url = urlAPI+'/driver/save';
+    int id = driver.document!;
+
+    var url = urlAPI+'/driver/save/'+ id.toString();
     final response = await http.post(Uri.parse(url),
           headers: <String, String>{'Content-Type': 'application/json'},
           body: jsonEncode(data));
