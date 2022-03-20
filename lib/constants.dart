@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 //url
-const urlAPI = 'http://0b17-191-92-40-44.ngrok.io';
+const urlAPI = 'http://2210-191-92-40-44.ngrok.io';
 //const urlAPI = 'http://localhost:8080';
 
 

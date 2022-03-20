@@ -107,6 +107,8 @@ class _MyMapsPageState extends State<MyMapsPage> {
                   destinationLat = x;
                   destinationLng = y;
                   polyVisibility = true;
+                  polylines.clear();
+                  polylineCoordinates.clear();
                 });
                 setPolylines(destinationLat, destinationLng);
               },
@@ -160,6 +162,9 @@ class _MyMapsPageState extends State<MyMapsPage> {
                             setState(() {
                               pinPillPosition = pinInvisibleTime;
                               polyVisibility = false;
+                              polylines.clear();
+                              polylineCoordinates.clear();
+                              //polylines.remove(true);
                             });
                           },
                           onMapCreated: (GoogleMapController controller) {
@@ -193,9 +198,6 @@ class _MyMapsPageState extends State<MyMapsPage> {
   }
   
   void setPolylines(double lat, double lng) async {
-    print("Ingreso "
-    "Actual lat $currentLat Actual lnt $currentLng"
-    " dest lat $lat dest lng $lng");
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
       "AIzaSyCsVBLSHAT-dR6aQY3r9xxWz563lqUuVHM",
       PointLatLng(
@@ -209,10 +211,7 @@ class _MyMapsPageState extends State<MyMapsPage> {
       travelMode: TravelMode.driving,
     );
 
-    print(result.points);
-    print(result.errorMessage);
     if (result.status == 'OK') {
-      print('resultado');
       for (var point in result.points) {
         polylineCoordinates.add(LatLng(point.latitude, point.longitude));
       }
@@ -220,9 +219,9 @@ class _MyMapsPageState extends State<MyMapsPage> {
       setState(() {
         polylines.add(
           Polyline(
-            width: 10,
+            width: 5,
             polylineId: const PolylineId('polyLine'),
-            color: const Color(0xFF08A5CB),
+            color: const Color(0xFF4C08CB),
             points: polylineCoordinates
           )
         );

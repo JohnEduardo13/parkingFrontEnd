@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:parking/src/services/loginState.dart';
 import 'package:parking/src/ui/login/components/login_body.dart';
-import 'package:provider/provider.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);

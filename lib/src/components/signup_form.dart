@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:parking/constants.dart';
-import 'package:parking/src/components/bottom_navigation_bar.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/models/driver_model.dart';
 import 'package:parking/src/models/user_model.dart';
 import 'package:parking/src/resources/driver_repository.dart';
 import 'package:parking/src/resources/user_repository.dart';
 import 'package:parking/src/services/auth.dart';
-import 'package:parking/src/ui/login/login_screen.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -156,12 +153,7 @@ class SignupFormState extends State<SignupForm> {
                         backgroundColor: kPrimaryLightColor,
                         content: Text('Usuario Creado',
                             textAlign: TextAlign.center)));
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return const LoginScreen();
-                      }),
-                    );
+                    Navigator.popUntil(context, ModalRoute.withName('/login'));
                   } else {
                     if (response.statusCode == 400) {
                       userRepo.deleteUser(_userController.text);

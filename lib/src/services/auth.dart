@@ -19,7 +19,6 @@ class AuthService{
       User? user = result.user;
       return user;
     } catch (error) {
-      print(error.toString());
       return null;
     } 
   }
@@ -30,7 +29,6 @@ class AuthService{
       User? user = result.user;
       return userFromFirebaseUser(user);
     } catch (error) {
-      print(error.toString());
       return null;
     } 
   }
@@ -39,7 +37,6 @@ class AuthService{
     try {
       return await FirebaseAuth.instance.signOut();
     } catch (error) {
-      print(error.toString());
       return null;
     }
   }

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:parking/constants.dart';
 import 'package:parking/src/components/already_have_an_account_check.dart';
-import 'package:parking/src/components/bottom_navigation_bar.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/components/input_button.dart';
 import 'package:parking/src/components/password_button.dart';
 import 'package:parking/src/models/user_model.dart';
 import 'package:parking/src/resources/user_repository.dart';
-import 'package:parking/src/ui/signup/signup_screen.dart';
+import 'package:parking/src/services/login_state.dart';
+import 'package:provider/provider.dart';
 
 class LoginBody extends StatelessWidget {
   const LoginBody({
@@ -71,12 +71,15 @@ class LoginBody extends StatelessWidget {
                           .then((response) {
                         if (response.user == _userController.text &&
                             response.password == _passController.text) {
-                          Navigator.push(
+                          Provider.of<LoginState>(context, listen: false).login(
+                              _userController.text, _passController.text);
+                          Navigator.of(context).pushReplacementNamed('/home');
+                          /*Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) {
                               return const BottomNavigation();
                             }),
-                          );
+                          );*/
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -93,21 +96,17 @@ class LoginBody extends StatelessWidget {
                     }
                   });
                 } else {
-                  print("sin datos");
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      backgroundColor: kPrimaryLightColor,
+                      content: Text('Porfavor llene todos los campos',
+                          textAlign: TextAlign.center)));
                 }
               },
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const SignUpScreen();
-                    },
-                  ),
-                );
+                Navigator.of(context).pushNamed('/signup');
               },
             ),
           ],
