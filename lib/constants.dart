@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 //url
-const urlAPI = 'http://e45e-181-50-102-111.ngrok.io';
+const urlAPI = 'http://2210-191-92-40-44.ngrok.io';
+//const urlAPI = 'http://localhost:8080';
+
 
 //Colores 
 const kPrimaryColor = Color(0xFF4141e2);

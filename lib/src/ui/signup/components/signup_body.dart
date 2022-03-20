@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:parking/constants.dart';
 import 'package:parking/src/components/already_have_an_account_check.dart';
 import 'package:parking/src/components/signup_form.dart';
-import 'package:parking/src/ui/login/login_screen.dart';
 
 class SignupBody extends StatelessWidget {
   const SignupBody({Key? key}) : super(key: key);
@@ -35,14 +34,7 @@ class SignupBody extends StatelessWidget {
             child: AlreadyHaveAnAccountCheck(
               login: false,
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const LoginScreen();
-                    },
-                  ),
-                );
+                Navigator.of(context).pushReplacementNamed('/login');
               },
             ),
           ),

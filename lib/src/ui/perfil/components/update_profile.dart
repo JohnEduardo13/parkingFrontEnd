@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:parking/constants.dart';
-import 'package:parking/src/components/bottom_navigation_bar.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/models/driver_model.dart';
 import 'package:parking/src/resources/driver_repository.dart';
+import 'package:parking/src/services/login_state.dart';
+import 'package:parking/src/ui/perfil/perfil_screen.dart';
+import 'package:provider/provider.dart';
 
 class UpdateProfile extends StatefulWidget {
-  final int id;
-  final String email;
-  const UpdateProfile({Key? key, required this.id, required this.email}) : super(key: key);
+  const UpdateProfile({Key? key}) : super(key: key);
 
   @override
   State<UpdateProfile> createState() => _UpdateProfileState();
@@ -21,11 +20,15 @@ class _UpdateProfileState extends State<UpdateProfile> {
   final _emailController = TextEditingController();
   final _mobileController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  int? idUser;
+  String? email;
   DriverRepository driver = DriverRepository();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
+    email = Provider.of<LoginState>(context, listen: false).currentUser();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -136,11 +139,12 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       heigth: 0.07,
                       text: 'Salir',
                       press: () {
+                        //Navigator.of(context).pushReplacementNamed('/home');
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) {
-                            return const BottomNavigation();
-                          }),
+                          MaterialPageRoute(
+                            builder: (context) => const PerfilScreen(),
+                          ),
                         );
                       },
                     ),
@@ -152,11 +156,11 @@ class _UpdateProfileState extends State<UpdateProfile> {
                       press: () {
                         if (_formKey.currentState!.validate()) {
                           driver
-                              .registerDriver(DriverModel(
-                            document: widget.id,
+                              .updateDriver(DriverModel(
+                            document: idUser,
                             name: _nameController.text,
                             lastName: _lastNameController.text,
-                            email: widget.email,
+                            email: email,
                             phone: _mobileController.text,
                           ))
                               .then((response) {

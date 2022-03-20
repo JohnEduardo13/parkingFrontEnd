@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:parking/constants.dart';
-import 'package:parking/src/components/bottom_navigation_bar.dart';
 import 'package:parking/src/components/button.dart';
 import 'package:parking/src/models/vehicles_model.dart';
 import 'package:parking/src/resources/vehicles_repository.dart';
-import 'package:parking/src/ui/vehicles/components/vehicles_body.dart';
+import 'package:parking/src/services/login_state.dart';
+import 'package:parking/src/ui/vehicles/vehicles_screen.dart';
+import 'package:provider/provider.dart';
 
 class VehiclesForm extends StatefulWidget {
   const VehiclesForm({Key? key}) : super(key: key);
@@ -21,6 +21,7 @@ class _VehiclesFormState extends State<VehiclesForm> {
 
   @override
   Widget build(BuildContext context) {
+    int? idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
     Size size = MediaQuery.of(context).size;
     VehiclesRepository vehicleRepo = VehiclesRepository();
     return SingleChildScrollView(
@@ -71,11 +72,9 @@ class _VehiclesFormState extends State<VehiclesForm> {
                     text: 'Salir',
                     press: () {
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) {
-                          return const BottomNavigation();
-                        }),
-                      );
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const VehiclesScreen()));
                     },
                   ),
                   SizedBox(width: size.height * 0.05),
@@ -90,7 +89,7 @@ class _VehiclesFormState extends State<VehiclesForm> {
                                 licensePlate:
                                     _textController.text.toUpperCase(),
                                 typeVehicle: _selecctedType,
-                                idDriver: 119421))
+                                idDriver: idUser))
                             .then((response) {
                           if (response.statusCode == 200) {
                             clearText();
@@ -126,7 +125,7 @@ class _VehiclesFormState extends State<VehiclesForm> {
         decoration: const InputDecoration(
           hintText: 'Ingrese su placa',
         ),
-        validator: (value) => _validatorEmail(value!));
+        validator: (value) => _validator(value!));
   }
 
   Widget selectType() {
@@ -155,13 +154,13 @@ class _VehiclesFormState extends State<VehiclesForm> {
     _textController.clear();
   }
 
-  String? _validatorEmail(String value) {
+  String? _validator(String value) {
     if (!_hasMinLenght(value)) {
       return 'Valide los datos';
     }
   }
 
   bool _hasMinLenght(String value) {
-    return value.isNotEmpty && value.length >= 3;
+    return value.isNotEmpty && value.length >= 3 && value.length <=6;
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:parking/constants.dart';
 import 'package:parking/src/components/button.dart';
-import 'package:parking/src/ui/login/login_screen.dart';
-import 'package:parking/src/ui/signup/signup_screen.dart';
+import 'package:parking/src/services/login_state.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeBody extends StatelessWidget {
   const WelcomeBody({Key? key}) : super(key: key);
@@ -10,6 +10,7 @@ class WelcomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    //bool state = Provider.of<LoginState>(context, listen: false).isLoggedIn();
     return Center(
       child: SingleChildScrollView(
         child: Column(
@@ -28,14 +29,7 @@ class WelcomeBody extends StatelessWidget {
               heigth: 0.07,
               text: loginButton,
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (BuildContext context) {
-                      return const LoginScreen();
-                    },
-                  ),
-                );
+                Navigator.of(context).pushReplacementNamed('/login');
               },
             ),
             Button(
@@ -45,14 +39,7 @@ class WelcomeBody extends StatelessWidget {
               color: kPrimaryLightColor,
               textColor: Colors.black,
               press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return const SignUpScreen();
-                    },
-                  ),
-                );
+                Navigator.of(context).pushReplacementNamed('/signup');
               },
             ),
           ],

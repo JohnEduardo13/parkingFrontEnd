@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:parking/constants.dart';
 import 'package:parking/src/resources/vehicles_repository.dart';
-import 'package:parking/src/ui/vehicles/components/vehicles_update_form.dart';
 
 class VehicleCard extends StatefulWidget {
   final String? type;
