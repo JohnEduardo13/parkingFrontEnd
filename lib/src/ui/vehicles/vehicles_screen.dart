@@ -11,7 +11,7 @@ class VehiclesScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
         centerTitle: true,
-        title: const Text('Mis Vehiculos'),
+        title: const Text('Mis vehículos'),
       ),
       body: const VehiclesBody(),
     );

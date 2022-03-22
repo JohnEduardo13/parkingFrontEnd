@@ -13,7 +13,7 @@ class TapNavigatorRoutes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget child = const MapsScreen();
-    if (tabItem == "Vehiculos") {
+    if (tabItem == "Vehículos") {
       child = const VehiclesForm();
     } else if (tabItem == "Perfil") {
       child = const UpdateProfile();

@@ -41,7 +41,7 @@ class LoginBody extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             InputButton(
               textController: _userController,
-              hintText: "Your Email",
+              hintText: "Email",
               onChanged: (value) {
                 user.user = value;
               },
@@ -57,12 +57,6 @@ class LoginBody extends StatelessWidget {
               heigth: 0.07,
               text: loginButton,
               press: () {
-                /*Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) {
-                    return const BottomNavigation();
-                  }),
-                );*/
                 if (_formKey.currentState!.validate()) {
                   userRepo.searchUser(_userController.text).then((response) {
                     if (response.statusCode == 200) {
@@ -74,12 +68,6 @@ class LoginBody extends StatelessWidget {
                           Provider.of<LoginState>(context, listen: false).login(
                               _userController.text, _passController.text);
                           Navigator.of(context).pushReplacementNamed('/home');
-                          /*Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) {
-                              return const BottomNavigation();
-                            }),
-                          );*/
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
@@ -98,7 +86,7 @@ class LoginBody extends StatelessWidget {
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       backgroundColor: kPrimaryLightColor,
-                      content: Text('Porfavor llene todos los campos',
+                      content: Text('Por favor llene todos los campos',
                           textAlign: TextAlign.center)));
                 }
               },

@@ -43,14 +43,14 @@ class _VehiclesUpdateState extends State<VehiclesUpdate> {
                     height: size.height * 0.35),
                 SizedBox(height: size.height * 0.03),
                 const Text(
-                  'Ingrese los datos para registrar su vehiculo',
+                  'Ingrese los datos para registrar su vehículo',
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: size.height * 0.03),
                 Row(
                   children: <Widget>[
                     const Text(
-                      'Tipo de Vehiculo: ',
+                      'Tipo de vehículo: ',
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                     selectType(),
@@ -104,14 +104,14 @@ class _VehiclesUpdateState extends State<VehiclesUpdate> {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor: kPrimaryLightColor,
-                                      content: Text('Vehiculo Actualizado',
+                                      content: Text('vehículo Actualizado',
                                           textAlign: TextAlign.center)));
                             } else {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       backgroundColor: kPrimaryLightColor,
                                       content: Text(
-                                          'Error al actualizar vehiculo',
+                                          'Error al actualizar vehículo',
                                           textAlign: TextAlign.center)));
                             }
                           });

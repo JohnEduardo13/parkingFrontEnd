@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 
 //url
-const urlAPI = 'http://2210-191-92-40-44.ngrok.io';
-//const urlAPI = 'http://localhost:8080';
-
+const urlAPI = 'http://parkiando-env.eba-9immxdcv.us-east-1.elasticbeanstalk.com';
 
 //Colores 
 const kPrimaryColor = Color(0xFF4141e2);
@@ -12,9 +10,9 @@ const kPrimaryDarkColor = Color(0xFF0017af);
 
 //Titulos
 const welcomeTitle = "Parkiando";
-const loginTitle = "LOGIN";
-const signUpTitle =  "SIGNUP";
+const loginTitle = "Iniciar sesión";
+const signUpTitle =  "Registrate";
 
 //Botones
-const loginButton = "LOGIN";
-const singUpButton = "SIGN UP"; 
+const loginButton = "Iniciar sesión";
+const singUpButton = "Registrate";

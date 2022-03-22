@@ -14,9 +14,15 @@ class LoginState with ChangeNotifier {
   String? currentUser() => user!.email;
   int? currentIdUser() => idUser;
 
+
   Future<SharedPreferences> prefs = SharedPreferences.getInstance();
   late SharedPreferences loginData;
   late bool loginState = false;
+
+  void preferencesId() async{
+    final SharedPreferences prefsState = await prefs;
+    idUser = prefsState.getInt('userID');
+  }
 
   void login(String email, String password) async {
     final SharedPreferences prefsState = await prefs;
@@ -28,6 +34,7 @@ class LoginState with ChangeNotifier {
       loggedIn = true;
       prefsState.setBool('isLoggedIn', loggedIn);
       prefsState.setInt('userID', idUser!);
+      prefsState.setString('userEmail', email);
       print('Estado del logueo $loggedIn Usuario $user Id $idUser');
       notifyListeners();
     } else {
@@ -35,6 +42,7 @@ class LoginState with ChangeNotifier {
       idUser = 0;
       prefsState.setBool('isLoggedIn', loggedIn);
       prefsState.setInt('userID', idUser!);
+      prefsState.setString('userEmail', '');
       //print(loggedIn);
       notifyListeners();
     }
@@ -47,6 +55,7 @@ class LoginState with ChangeNotifier {
     idUser = 0;
     prefsState.setBool('isLoggedIn', loggedIn);
     prefsState.setInt('userID', idUser!);
+    prefsState.setString('userEmail', '');
     print('Deslogueo $loggedIn');
     notifyListeners();
   }

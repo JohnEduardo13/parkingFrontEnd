@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:parking/constants.dart';
 import 'package:parking/src/models/vehicles_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class VehiclesRepository {
   VehiclesModel vehicle = VehiclesModel();
@@ -28,8 +29,25 @@ class VehiclesRepository {
     return response;
   }*/
 
-  Future<List<VehiclesModel>> searchVehicles(String idDriver) async {
+  /*Future<List<VehiclesModel>> searchVehicles(String idDriver) async {
     var url = urlAPI + '/vehicle/' + idDriver;
+    final response = await http.get(Uri.parse(url));
+    var responseBody = jsonDecode(response.body);
+    var dataList = <VehiclesModel>[];
+
+    if (response.statusCode == 200) {
+      for (responseBody in responseBody) {
+        dataList.add(VehiclesModel.fronJSON(responseBody));
+      }
+      return dataList;
+    } else {
+      throw Exception('Fail to get data');
+    }
+  }*/
+  Future<List<VehiclesModel>> searchVehicles() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? idUser = prefs.getInt('userID');
+    var url = urlAPI + '/vehicle/' + idUser.toString();
     final response = await http.get(Uri.parse(url));
     var responseBody = jsonDecode(response.body);
     var dataList = <VehiclesModel>[];

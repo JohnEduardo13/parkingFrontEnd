@@ -6,6 +6,7 @@ import 'package:parking/src/resources/driver_repository.dart';
 import 'package:parking/src/services/login_state.dart';
 import 'package:parking/src/ui/perfil/perfil_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateProfile extends StatefulWidget {
   const UpdateProfile({Key? key}) : super(key: key);
@@ -24,11 +25,22 @@ class _UpdateProfileState extends State<UpdateProfile> {
   String? email;
   DriverRepository driver = DriverRepository();
 
+  getData() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    idUser = prefs.getInt('userID');
+    email = prefs.getString('userEmail');
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
-    email = Provider.of<LoginState>(context, listen: false).currentUser();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: kPrimaryColor,
@@ -115,14 +127,14 @@ class _UpdateProfileState extends State<UpdateProfile> {
                     Row(
                       children: <Widget>[
                         const Text(
-                          'Telefono: ',
+                          'Teléfono: ',
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           width: 200,
                           height: 30,
                           child:
-                              textInput('Ingrese su telefono', _mobileController),
+                              textInput('Ingrese su teléfono', _mobileController),
                         )
                       ],
                     )

@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:parking/constants.dart';
 import 'package:parking/src/models/driver_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:parking/src/services/login_state.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class DriverRepository {
   DriverModel driver = DriverModel();
@@ -25,8 +28,10 @@ class DriverRepository {
     return response;
   }
 
-  Future<DriverModel> searchDriver(String id) async {
-    final url = urlAPI + '/driver/id/' + id;
+  Future<DriverModel> searchDriver() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int? idUser = prefs.getInt('userID');
+    final url = urlAPI + '/driver/id/' + idUser.toString();
     final response = await http.get(Uri.parse(url));
     return DriverModel.fromJSON(jsonDecode(response.body));
   }

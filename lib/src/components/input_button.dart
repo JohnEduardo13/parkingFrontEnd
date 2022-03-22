@@ -23,13 +23,13 @@ class InputButton extends StatelessWidget {
         onChanged: onChanged,
         validator: (value){
           if(value!.isEmpty){
-            return 'Email is Empty';
+            return 'Ingrese su email';
           }
           return null;
         },
         cursorColor: kPrimaryColor,
         decoration: InputDecoration(
-          errorStyle: const TextStyle(color: Colors.black),
+          errorStyle: const TextStyle(color: Colors.white),
           icon: Icon(
             icon,
             color: kPrimaryColor,
