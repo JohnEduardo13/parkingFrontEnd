@@ -86,8 +86,8 @@ class SignupFormState extends State<SignupForm> {
     return TextFormField(
         controller: _phoneController,
         decoration: const InputDecoration(
-          hintText: 'Inserte su telefono',
-          labelText: 'Telefono',
+          hintText: 'Inserte su teléfono',
+          labelText: 'Teléfono',
         ),
         validator: (value) => _validatorEmail(value!));
   }
@@ -153,7 +153,8 @@ class SignupFormState extends State<SignupForm> {
                         backgroundColor: kPrimaryLightColor,
                         content: Text('Usuario Creado',
                             textAlign: TextAlign.center)));
-                    Navigator.popUntil(context, ModalRoute.withName('/login'));
+                    //Navigator.popUntil(context, ModalRoute.withName('/login'));
+                    Navigator.of(context).pushReplacementNamed('/login');
                   } else {
                     if (response.statusCode == 400) {
                       userRepo.deleteUser(_userController.text);
@@ -186,76 +187,6 @@ class SignupFormState extends State<SignupForm> {
               }
             });
           }
-
-          /*userRepo.searchUser(_userController.text).then((response1) {
-            if (response1.statusCode == 200) {
-              print(response1.statusCode);
-              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                  backgroundColor: kPrimaryLightColor,
-                  content: Text('El usuario ya se encuentra registrado',
-                      textAlign: TextAlign.center)));
-            } else {
-              if (response1.statusCode == 204) {
-                print("USUARIO NO ENCONTRADO");
-                userRepo
-                    .registerUSer(UserModel(
-                        user: _userController.text,
-                        password: _passController.text))
-                    .then((response2) {
-                  if (response2.statusCode == 200) {
-                    driverRepo
-                        .registerDriver(DriverModel(
-                            document: int.parse(_documentController.text),
-                            name: _nameController.text,
-                            lastName: _lastNameController.text,
-                            email: _userController.text,
-                            phone: _phoneController.text))
-                        .then((response3) {
-                      print(response3.statusCode);
-                      if (response3.statusCode == 200) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                backgroundColor: kPrimaryLightColor,
-                                content: Text('Usuario Creado',
-                                    textAlign: TextAlign.center)));
-
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) {
-                            return const LoginScreen();
-                          }),
-                        );
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                backgroundColor: kPrimaryLightColor,
-                                content: Text(
-                                    'Error al no poder crear el usuario',
-                                    textAlign: TextAlign.center)));
-                      }
-                    }).catchError((Object error) {
-                      print(' Error ${error}');
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: kPrimaryLightColor,
-                        content: Text('Usuario Creado',
-                            textAlign: TextAlign.center)));
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        backgroundColor: kPrimaryLightColor,
-                        content: Text('Error al crear el usuario',
-                            textAlign: TextAlign.center)));
-                  }
-                });
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                    backgroundColor: kPrimaryLightColor,
-                    content: Text('Error al consultar el usuario',
-                        textAlign: TextAlign.center)));
-              }
-            }
-          });*/
-
         }
       },
     );
@@ -263,13 +194,13 @@ class SignupFormState extends State<SignupForm> {
 
   String? _validatorEmail(String value) {
     if (!_hasMinLenght(value)) {
-      return 'Please enter some text';
+      return 'Please llene los campos';
     }
   }
 
   String? _validatorPassword(String value) {
     if (!_hasMinLenght(value)) {
-      return 'Please enter some text';
+      return 'Please llene los campos';
     }
   }
 

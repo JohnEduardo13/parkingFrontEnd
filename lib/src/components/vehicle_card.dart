@@ -29,7 +29,7 @@ class VehicleCardState extends State<VehicleCard> {
         children: <Widget>[
           ListTile(
               contentPadding: const EdgeInsets.fromLTRB(15, 10, 25, 0),
-              title: Text('Vehiculo: ${widget.type}'),
+              title: Text('Vehículos: ${widget.type}'),
               subtitle: Text('Placa: ${widget.licensePlate}'),
               leading: widget.type == 'Auto'
                   ? const Icon(Icons.drive_eta)
@@ -59,13 +59,13 @@ class VehicleCardState extends State<VehicleCard> {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     backgroundColor: kPrimaryLightColor,
-                                    content: Text('Vehiculo eliminado',
+                                    content: Text('Vehículo eliminado',
                                         textAlign: TextAlign.center)));
                           } else {
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     backgroundColor: kPrimaryLightColor,
-                                    content: Text('Error al eliminar vehiculo',
+                                    content: Text('Error al eliminar Vehículo',
                                         textAlign: TextAlign.center)));
                           }
                         })

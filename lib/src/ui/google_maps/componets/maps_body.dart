@@ -63,6 +63,14 @@ class _MyMapsPageState extends State<MyMapsPage> {
     
   }*/
 
+  @override
+  void didChangeDependencies() {
+    // Provider.of<>(context)
+    super.didChangeDependencies();
+    createMarkers();
+  }
+
+
   void locatePosition() async {
     Position position = await Geolocator.getCurrentPosition(
         desiredAccuracy: LocationAccuracy.high);
@@ -164,13 +172,12 @@ class _MyMapsPageState extends State<MyMapsPage> {
                               polyVisibility = false;
                               polylines.clear();
                               polylineCoordinates.clear();
-                              //polylines.remove(true);
                             });
                           },
                           onMapCreated: (GoogleMapController controller) {
                             newGoogleMapController = controller;
                             _controllerGoogleMap.complete(controller);
-
+                            createMarkers();
                             locatePosition();
                             setPolylines(destinationLat, destinationLng);
                           },

@@ -20,22 +20,22 @@ class PasswordButton extends StatelessWidget {
         onChanged: onChanged,
         validator: (value){
           if(value!.isEmpty){
-            return 'Password is Empty';
+            return 'Ingrese su contraseña';
           }
           return null;
         },
         cursorColor: kPrimaryColor,
         decoration: const InputDecoration(
           hintText: "Password",
-          errorStyle: TextStyle(color: Colors.black),
+          errorStyle: TextStyle(color: Colors.white),
           icon: Icon(
             Icons.lock,
             color: kPrimaryColor,
           ),
-          suffixIcon: Icon(
+          /*suffixIcon: Icon(
             Icons.visibility,
             color: kPrimaryColor,
-          ),
+          ),*/
           border: InputBorder.none,
         ),
       ),

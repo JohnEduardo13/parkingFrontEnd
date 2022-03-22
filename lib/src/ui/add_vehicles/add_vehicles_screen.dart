@@ -12,7 +12,7 @@ class AddVehiclesScreen extends StatelessWidget {
         backgroundColor: kPrimaryColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
-        title: const Text("Registrar Vehiculos"),
+        title: const Text("Registrar Vehículos"),
       ),
       body: const VehiclesForm(),
     );

@@ -19,25 +19,28 @@ class PerfilBody extends StatefulWidget {
 class _PerfilBodyState extends State<PerfilBody> {
   BottomNavigation onTap = const BottomNavigation();
   DriverRepository user = DriverRepository();
+  Future<SharedPreferences> prefs = SharedPreferences.getInstance();
 
   int? idUser;
   String userFullName = '';
   String userEmail = '';
   String userMobile = '';
 
-  @override
-  void initState() {
-    super.initState();
-    //SharedPreferences prefs = await SharedPreferences.getInstance();
-    //idUser = prefs.getInt('userID');
-    idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
-    user.searchDriver(idUser.toString()).then((response) {
+  getData() {
+    user.searchDriver().then((response) {
       setState(() {
         userFullName = response.name! + " " + response.lastName!;
         userEmail = response.email!;
         userMobile = response.phone!;
       });
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    //idUser = Provider.of<LoginState>(context, listen: false).currentIdUser();
+    getData();
   }
 
   @override
@@ -98,19 +101,6 @@ class _PerfilBodyState extends State<PerfilBody> {
                       ),
                     ],
                   ),
-                  /*Row(
-                    children: <Widget>[
-                      const Icon(
-                        Icons.lock,
-                        color: kPrimaryColor,
-                      ),
-                      TextButton(
-                        onPressed: () => {},
-                        child: const Text("Editar Contraseña",
-                            style: TextStyle(color: kPrimaryLightColor)),
-                      ),
-                    ],
-                  ),*/
                 ],
               ),
             ),
@@ -133,7 +123,7 @@ class _PerfilBodyState extends State<PerfilBody> {
                               .pushReplacement(MaterialPageRoute(
                                   builder: (context) => const LoginScreen()));
                         },
-                        child: const Text("Cerrar Sesiòn",
+                        child: const Text("Cerrar Sesión",
                             style: TextStyle(color: kPrimaryLightColor)),
                       ),
                     ],
